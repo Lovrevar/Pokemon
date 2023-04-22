@@ -1,49 +1,70 @@
+/* css
+.App {
+    text-align: center;
+  }
+  
+  .pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 1rem;
+    max-width: 1000px;  
+    margin: 0 auto;
+  }
+  
+  .pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+  }
+  
+  .pokemon-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .pokemon-card .pokemon-index {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  .load-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .load-more-btn {
+    background-color: #fb6c6c;
+    border: none;
+    border-radius: 0.5rem;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .load-more-btn:hover {
+    background-color: #e45656;
+  }
+*/
+
+/* js
 import { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.css';
-import About from './Pages/About';
-import Pokemon from './Pages/Pokemon';
 
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit] = useState(12);
+  const [limit] = useState(16);
   const pokemonGrid = useRef(null);
-
-  function Nav() {
-    const navigate = useNavigate();
-    const [searchTerm, setSearchTerm] = useState("");
-  
-    const handleButtonClick = () => {
-      navigate('/Pages/About');
-    }
-    const handleSearch = (event) => {
-      event.preventDefault();
-      // Forward user to the page for the searched Pokemon
-      navigate(`/Pokemon/${searchTerm}`);
-      // Clear the search input
-      setSearchTerm("");
-    };
-
-    return (
-      <div className="nav-container">
-        <Link to="/" className="nav-item">Pokedex</Link>
-        <div className="search-container">
-        </div>
-        <form onSubmit={handleSearch} className="search-container">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search Pokemon..."
-        />
-        <button type="submit">Search</button>
-      </form>
-        <Link to="/About" className="nav-item">About</Link>
-      </div>
-    );
-    }  
  
 
   // Function to fetch Pokemon data from API and update state with new data
@@ -72,6 +93,8 @@ function setCurrentPage(newPage) {
     setCurrentPage(prevPage => prevPage + 1);
   }
 
+  
+
   // Fetch Pokemon data when offset changes
   useEffect(() => {
     fetchPokemonData();
@@ -85,15 +108,12 @@ function setCurrentPage(newPage) {
       return pokemonList.find(pokemon => pokemon.name === name);
     });
   
-    if (pokemonGrid.current) {
-      pokemonGrid.current.innerHTML = '';
-    }
+    pokemonGrid.current.innerHTML = '';
   
     uniquePokemonList.forEach(async (pokemon) => {
       // Create a div to hold the Pokemon card
       const pokemonCard = document.createElement("div");
       pokemonCard.classList.add("pokemon-card");
-     
   
       // Set the background color of the card based on the first element type of the Pokemon
       const backgroundColor = {
@@ -133,8 +153,6 @@ function setCurrentPage(newPage) {
       const pokemonName = document.createElement("div");
       pokemonName.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
       pokemonCard.appendChild(pokemonName);
-
-     
   
       // Add the completed Pokemon card to the grid
       pokemonGrid.current.appendChild(pokemonCard);
@@ -143,25 +161,15 @@ function setCurrentPage(newPage) {
   }, [pokemonList]);
 
   return (
-    <Router>
-      <div className="App">
-        <Nav />
-        <Routes>
-          <Route path="/" element={
-            <div>
-              <div ref={pokemonGrid} className="pokemon-grid"></div>
-              <div className="pagination-container">
-                <button className="pagination-btn previous-btn" onClick={handlePrevious}>{'<'}</button>
-                <button className="pagination-btn next-btn" onClick={handleNext}>{'>'}</button>
-              </div>
-            </div>
-          } />
-          <Route path="/About" element={<About/>} />
-          <Route path="/Pokemon" element={<Pokemon/>} />
-          <Route path="/Pokemon/$id}" component={Pokemon} />
-        </Routes>
+    <div className="App">
+      <div ref={pokemonGrid} className="pokemon-grid"></div>
+      <div className="pagination-container">
+        <button class="pagination-btn previous-btn" onClick={handlePrevious}>{'<'}</button>
+        <button class="pagination-btn next-btn" onClick={handleNext}>{'>'}</button>
       </div>
-    </Router>
+    </div>
   );
   }
 export default App;
+
+*/
