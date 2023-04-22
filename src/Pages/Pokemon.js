@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Pokemon.css';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
-function Pokemon({match}) {
+function Pokemon({}) {
   const [pokemon, setPokemon] = useState(null);
-  const searchValue = window.location.pathname.replace('localhost:3000/Pokemon/','');
-  const pokemonId = match.params.id; 
-  const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
+  const {searchTerm} = useParams(); 
+  const apiUrl = `https://pokeapi.co/api/v2/pokemon/${searchTerm}`;
 
   useEffect(() => {
     fetch(apiUrl)
@@ -16,7 +15,7 @@ function Pokemon({match}) {
       })
       .catch(error => console.log(error));
   }, [apiUrl]);
-
+ 
   if (!pokemon) {
     return <div>Loading...</div>;
   }
@@ -81,15 +80,15 @@ function Pokemon({match}) {
   
 
   return (
-    <div className="pokemon-card">
-  <div className="pokemon-card__image-container">
+    <div className="pokemon-card ">
+  <div className="pokemon-card__image-container container-fix">
     <img
       className="pokemon-card__image"
-      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
+      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${searchTerm}.png`}
       alt={name}
     />
   </div>
-  <div className="pokemon-card__info" style={statsStyle}>
+  <div className="pokemon-card__info container-fix"  style={statsStyle} >
     <h2 className="pokemon-card__name">{name}</h2>
     <div className="pokemon-card__types">
       <span className={`pokemon-card__type pokemon-card__type--${type.toLowerCase()}`}>{type} </span>

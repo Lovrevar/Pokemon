@@ -157,8 +157,7 @@ function setCurrentPage(newPage) {
             </div>
           } />
           <Route path="/About" element={<About/>} />
-          <Route path="/Pokemon" element={<Pokemon/>} />
-          <Route path="/Pokemon/$id}" component={Pokemon} />
+          <Route path="/Pokemon/:searchTerm" element={<Pokemon/>}/>
         </Routes>
       </div>
     </Router>
